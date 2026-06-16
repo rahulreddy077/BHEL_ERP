@@ -1,0 +1,7 @@
+username,email,password,role,assigned_module
+admin,admin@bhel.com,admin123,SUPER_ADMIN,
+ravi,ravi@bhel.com,ravi123,MODULE_ADMIN,ENGINEERING
+riya,riya@bhel.com,riya123,USER,ENGINEERING
+finance_admin,finance_admin@bhel.com,finance123,MODULE_ADMIN,FINANCE
+finance_user,finance_user@bhel.com,financeuser123,USER,FINANCE
+inventory_user,inventory_user@bhel.com,inventory123,USER,INVENTORY

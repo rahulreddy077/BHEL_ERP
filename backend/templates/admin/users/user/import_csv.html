@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; {% translate 'Import CSV' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <p>Upload a CSV file containing user details. The CSV must contain the following headers:</p>
+      <code style="display: block; padding: 12px; background: #f8f9fa; border: 1px solid #dee2e6; margin-bottom: 20px; font-family: Courier, monospace; font-size: 13px; border-radius: 4px; color: #212529;">
+        username,email,password,role,assigned_module
+      </code>
+      
+      <div class="form-row">
+        <label for="id_csv_file" style="font-weight: bold; margin-right: 15px;">Select CSV File:</label>
+        <input type="file" name="csv_file" id="id_csv_file" required accept=".csv">
+      </div>
+      
+      <div class="submit-row" style="margin-top: 30px;">
+        <input type="submit" value="Upload and Import" class="default" style="cursor: pointer;">
+        <a href=".." class="closelink" style="margin-left: 15px; display: inline-block; vertical-align: middle;">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
