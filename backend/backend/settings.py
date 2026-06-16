@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+elif 'PYTHONANYWHERE_DOMAIN' in os.environ:
+    ALLOWED_HOSTS.append('rahulreddy077.pythonanywhere.com')
 else:
     ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
 
@@ -106,7 +108,18 @@ DATABASES = {
     }
 }
 
-if has_dj_db_url and 'DATABASE_URL' in os.environ:
+if 'PYTHONANYWHERE_DOMAIN' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'rahulreddy077$bhel_erp',
+            'USER': 'rahulreddy077',
+            'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+            'HOST': 'rahulreddy077.mysql.pythonanywhere-services.com',
+            'PORT': '3306',
+        }
+    }
+elif has_dj_db_url and 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600,
         conn_health_checks=True,
